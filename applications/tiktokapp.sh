@@ -51,7 +51,7 @@ cat > "$DESKTOP_FILE" << EOF
 [Desktop Entry]
 Name=TikTok KX Launcher
 Comment=TikTok Web Wrapper Client
-Exec=$LAUNCHER_SCRIPT
+Exec="$LAUNCHER_SCRIPT"
 Icon=$APP_DIR/tiktok.png
 Terminal=false
 Type=Application
@@ -62,4 +62,4 @@ EOF
 update-desktop-database "$HOME/.local/share/applications"
 
 echo -e "TikTok Wrapper Installed! Launching..\nThank KHXNGVNG \nNOTE : IT TAKES A WHILE TO LOAD, WAIT"
-"$LAUNCHER_SCRIPT"
+bash "$LAUNCHER_SCRIPT"
