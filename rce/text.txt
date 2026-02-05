@@ -1,0 +1,3 @@
+RUN_SCR
+notify-send "Alert" "Ran Remotly!"
+touch ~/success.txt
