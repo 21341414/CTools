@@ -2,7 +2,7 @@ APP_DIR="$HOME/TikTok-linux-x64"
 DESKTOP_FILE="$HOME/.local/share/applications/tiktok.desktop"
 
 if [ -d "$APP_DIR" ] || [ -f "$DESKTOP_FILE" ]; then
-    echo "Old TikTok wrapper found, removing..."
+    echo "Old TikTok Wrapper Found,\nRmoving..."
     rm -rf "$APP_DIR"
     rm -f "$DESKTOP_FILE"
     update-desktop-database "$HOME/.local/share/applications"
