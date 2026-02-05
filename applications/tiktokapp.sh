@@ -9,8 +9,8 @@ wget -O ~/TikTok-linux-x64/tiktok.png https://raw.githubusercontent.com/21341414
 mkdir -p ~/.local/share/applications && \
 cat > ~/.local/share/applications/tiktok.desktop << 'EOF'
 [Desktop Entry]
-Name=TikTok KX
-Comment=TikTok Web Wrapper
+Name=TikTok KX Launcher
+Comment=TikTok Web Wrapper Client
 Exec=/home/linux/TikTok-linux-x64/TikTok --disable-gpu
 Icon=/home/linux/TikTok-linux-x64/tiktok.png
 Terminal=false
