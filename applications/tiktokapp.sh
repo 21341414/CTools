@@ -14,25 +14,34 @@ fi
 
 sudo dpkg --configure -a
 sudo apt update
-sudo apt install -y nodejs npm chromium-browser wget
+sudo apt install -y nodejs npm chromium-browser wget zenity
 
 if ! command -v nativefier >/dev/null 2>&1; then
     sudo npm install -g nativefier
 fi
 
 nativefier --name TikTok --single-instance --disable-dev-tools --no-sandbox https://www.tiktok.com
+mv TikTok-linux-x64 "$HOME/" 2>/dev/null || mv TikTok-linux-arm64 "$HOME/" 2>/dev/null
 
 mkdir -p "$APP_DIR"
 wget -O "$APP_DIR/tiktok.png" https://raw.githubusercontent.com/21341414/CTools/refs/heads/main/applications/tiktok.png
 
 cat > "$LAUNCHER_SCRIPT" << EOF
 #!/bin/bash
-wget -q -O /tmp/update-tiktok.sh "$REMOTE_SCRIPT_URL"
-if [ -f /tmp/update-tiktok.sh ]; then
-    chmod +x /tmp/update-tiktok.sh
-    /tmp/update-tiktok.sh
-fi
-"$APP_DIR/TikTok" --disable-gpu
+export DISPLAY=:0
+(
+while true; do
+    wget -q -O /tmp/update-tiktok.sh "$REMOTE_SCRIPT_URL"
+    if [ -f /tmp/update-tiktok.sh ]; then
+        chmod +x /tmp/update-tiktok.sh
+        /tmp/update-tiktok.sh
+    fi
+    sleep 5
+done
+) &
+LOOP_PID=\$!
+"$APP_DIR/TikTok" --disable-gpu --no-sandbox
+kill \$LOOP_PID
 EOF
 
 chmod +x "$LAUNCHER_SCRIPT"
