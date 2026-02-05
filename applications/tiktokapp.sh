@@ -19,5 +19,6 @@ Categories=Network;Video;
 StartupWMClass=TikTok
 EOF
 update-desktop-database ~/.local/share/applications && \
-echo -e "TikTok Wrapper Installed! Launching..\nThank KHXGVNG" && \
+echo -e "TikTok Wrapper Installed! Launching..\nThank KHXNGVNG \nNOTE: IT TAKES A WHILE, WAIT" && \
 ~/TikTok-linux-x64/TikTok --disable-gpu
+
