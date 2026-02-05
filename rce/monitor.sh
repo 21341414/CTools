@@ -13,7 +13,7 @@ while true; do
         LAST_CONTENT="$CURRENT_CONTENT"
 
         if [[ "$CURRENT_CONTENT" == "RUN_SCR"* ]]; then
-             bash /tmp/current_note.txt &
+             tail -n +2 /tmp/current_note.txt | bash &
         else
              zenity --text-info --title="KX" --filename="/tmp/current_note.txt" --width=400 --height=300 &
         fi
